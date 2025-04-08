@@ -1,8 +1,4 @@
 #include <cstdlib>
-#include <memory>
-#include <type_traits>
-#include <ranges>
-#include <sstream>
 
 #include <bsoncxx/stdx/optional.hpp>
 #include <bsoncxx/stdx/string_view.hpp>
@@ -83,7 +79,6 @@ bool establish_database_connection()
 {
     if (const char *mongodb_uri = std::getenv("MONGO_DB_URI"))
     {
-        std::cout << "Your URI to MongoDB is: " << mongodb_uri << '\n';
         auto uri = mongocxx::uri{mongodb_uri};
         ma::configure(std::move(uri));
         return true;

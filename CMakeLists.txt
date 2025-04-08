@@ -7,6 +7,7 @@ option(CPM_USE_LOCAL_PACKAGES "Try `find_package` before downloading dependencie
 
 file(GLOB SOURCES
     src/*.hpp
+    src/*.h
     src/*.cpp
 )
 
@@ -24,7 +25,6 @@ file(
 include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 #cmake_print_variables(PROJECT_SOURCE_DIR)
 
-# using FindPkgConfig
 include(FindPkgConfig)
 if(PKG_CONFIG_FOUND)
     pkg_check_modules(MONGODB REQUIRED IMPORTED_TARGET GLOBAL libmongocxx)
@@ -38,15 +38,15 @@ else()
         GIT_REPOSITORY https://github.com/mongodb/mongo-cxx-driver
         GIT_TAG r4.0.0
     )
-    target_link_libraries(Mongodb PUBLIC MongoDB)
+        target_link_libraries(Mongodb PUBLIC MongoDB)
 endif()
 
 CPMAddPackage(
     #requires libgtk-3-dev to be installed
     NAME wxWidgets
     GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets
-    GIT_TAG v3.2.6
-    EXPECTED_HASH SHA1=a9451a7344308c6f81499d2fe2ab37d40fb5feb2
+    GIT_TAG v3.2.7
+    EXPECTED_HASH SHA1=9c1906e8a7db0c27c88be8d531fed1b980d5e56b
 )
 target_link_libraries(Mongodb PUBLIC wx::net wx::core wx::base)
 
