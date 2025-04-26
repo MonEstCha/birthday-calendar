@@ -45,8 +45,8 @@ CPMAddPackage(
     #requires libgtk-3-dev to be installed
     NAME wxWidgets
     GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets
-    GIT_TAG v3.2.7
-    EXPECTED_HASH SHA1=9c1906e8a7db0c27c88be8d531fed1b980d5e56b
+    GIT_TAG v3.2.8
+    EXPECTED_HASH SHA1=b218ba7e0d472e0763cf67742b1ded946fd21954
 )
 target_link_libraries(Mongodb PUBLIC wx::net wx::core wx::base)
 
