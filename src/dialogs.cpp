@@ -224,3 +224,35 @@ MyAddBirthdayDialog::MyAddBirthdayDialog(wxWindow *parent, const wxDateTime& dt,
 
     SetSizerAndFit(sizerTop);
 }
+
+// ----------------------------------------------------------------------------
+// MyAddBirthdayDialog
+// ----------------------------------------------------------------------------
+
+wxBEGIN_EVENT_TABLE(MyRmvBirthdayDialog, wxDialog)
+
+wxEND_EVENT_TABLE()
+
+MyRmvBirthdayDialog::MyRmvBirthdayDialog(wxWindow *parent, int dtpStyle)
+        : wxDialog(parent, wxID_ANY, wxString("Calendar: Delete a Birthday"))
+{
+    wxWindow *textEntry = nullptr;
+    wxSize *textEntrySize = new wxSize(150, 30);
+
+    m_textEntry = new wxTextCtrl(this, wxID_ANY, "",
+                               wxDefaultPosition, *textEntrySize,
+                               dtpStyle);
+
+    textEntry = m_textEntry;
+
+    const wxSizerFlags flags = wxSizerFlags().Centre().Border();
+    wxFlexGridSizer* const sizerMain = new wxFlexGridSizer(2);
+    sizerMain->Add(new wxStaticText(this, wxID_ANY, "Enter &full name:"), flags);
+    sizerMain->Add(textEntry, flags);
+
+    wxSizer *sizerTop = new wxBoxSizer(wxVERTICAL);
+    sizerTop->Add(sizerMain, flags);
+    sizerTop->Add(CreateStdDialogButtonSizer(wxOK | wxCANCEL), flags);
+
+    SetSizerAndFit(sizerTop);
+}

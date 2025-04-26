@@ -145,11 +145,23 @@ bool insert_birthday(const std::string date, const std::string name)
     auto connection = ma::mongo_access::instance().get_connection();
     auto collection = connection["knowledge_app"]["birthdays"];
 
-    std::vector<std::string> result{};
     bsoncxx::v_noabi::document::view_or_value doc = make_birthday_doc(date, name);
 
     if(!doc_exist(doc, collection)){ 
         collection.insert_one(doc);
+        return true;
+    }
+    return false;
+
+}
+
+bool remove_birthday(const std::string name)
+{
+    auto connection = ma::mongo_access::instance().get_connection();
+    auto collection = connection["knowledge_app"]["birthdays"];
+
+    auto result = collection.delete_one(make_document(kvp("name", name)));
+    if(result->deleted_count() > 0){
         return true;
     }
     return false;

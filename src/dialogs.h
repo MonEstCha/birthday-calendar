@@ -140,6 +140,19 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
+// Rmv birthday functionality
+class MyRmvBirthdayDialog : public wxDialog
+{
+public:
+MyRmvBirthdayDialog(wxWindow *parent, int dtpStyle);
+
+    wxTextCtrl *m_textEntry;
+
+private:
+
+    wxDECLARE_EVENT_TABLE();
+};
+
 // ----------------------------------------------------------------------------
 // constants
 // ----------------------------------------------------------------------------
@@ -183,5 +196,6 @@ enum
 #endif // wxUSE_TIMEPICKCTRL_GENERIC
 #endif // wxUSE_TIMEPICKCTRL
     Calendar_BirthdayAdd_Form = 500,
+    Calendar_BirthdayRmv_Form = 510,
     Calendar_CalCtrl = 1000
 };

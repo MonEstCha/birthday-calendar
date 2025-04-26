@@ -124,6 +124,7 @@ public:
     void OnAskTime(wxCommandEvent& event);
 #endif // wxUSE_TIMEPICKCTRL
     void OnAddBirthday(wxCommandEvent& event);
+    void OnRmvBirthday(wxCommandEvent& event);
 #ifdef wxHAS_NATIVE_CALENDARCTRL
     void OnCalGeneric(wxCommandEvent& WXUNUSED(event))
     {
@@ -188,6 +189,7 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
 #endif // wxUSE_TIMEPICKCTRL
 
     EVT_MENU(Calendar_BirthdayAdd_Form, MyFrame::OnAddBirthday)
+    EVT_MENU(Calendar_BirthdayRmv_Form, MyFrame::OnRmvBirthday)
 
 #ifdef wxHAS_NATIVE_CALENDARCTRL
     EVT_MENU(Calendar_Cal_Generic, MyFrame::OnCalGeneric)
@@ -369,9 +371,10 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     menuBar->Append(menuTime, "&Time picker");
 #endif // wxUSE_TIMEPICKCTRL
 
-    wxMenu *menuAddBirthday = new wxMenu;
-    menuAddBirthday->Append(Calendar_BirthdayAdd_Form, "&Fill in data...\tCtrl-T");
-    menuBar->Append(menuAddBirthday, "&Add Birthday");
+    wxMenu *menuBirthdays = new wxMenu;
+    menuBirthdays->Append(Calendar_BirthdayAdd_Form, "&Add a Birthday");
+    menuBirthdays->Append(Calendar_BirthdayRmv_Form, "&Remove a Birthday");
+    menuBar->Append(menuBirthdays, "&Birthdays");
 
     menuBar->Check(Calendar_Cal_AutoWeekday, true);
     menuBar->Check(Calendar_Cal_Sunday, false);
@@ -632,10 +635,24 @@ void MyFrame::OnAddBirthday(wxCommandEvent& WXUNUSED(event))
     
     if(dlg.ShowModal() == wxID_OK){
         name = dlg.m_textEntry->GetValue();
-        cout << name << endl;
         date = dlg.GetDate().FormatISODate().ToStdString();
-        cout << date << endl;
         ma::insert_birthday(date, name);
+    }
+    
+}
+
+void MyFrame::OnRmvBirthday(wxCommandEvent& WXUNUSED(event))
+{
+
+    int style = wxDP_DEFAULT | wxRESIZE_BORDER;
+
+    std::string name = "";
+    MyRmvBirthdayDialog dlg(this,style);
+    dlg.SetSize(300,150);
+    
+    if(dlg.ShowModal() == wxID_OK){
+        name = dlg.m_textEntry->GetValue();
+        ma::remove_birthday(name);
     }
     
 }
