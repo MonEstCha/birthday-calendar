@@ -31,14 +31,6 @@ if(PKG_CONFIG_FOUND)
     if(MONGODB_FOUND)
         target_link_libraries(Mongodb PUBLIC PkgConfig::MONGODB)
     endif()
-else()
-    # using CPM
-    CPMAddPackage(
-        NAME MongoDB
-        GIT_REPOSITORY https://github.com/mongodb/mongo-cxx-driver
-        GIT_TAG r4.0.0
-    )
-        target_link_libraries(Mongodb PUBLIC MongoDB)
 endif()
 
 CPMAddPackage(
